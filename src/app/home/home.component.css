@@ -1,0 +1,17 @@
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 10px;
+    background-color:darkgrey;
+  }
+  .flex-container > div {
+    background-color: #f1f1f1;
+    margin: 10px;
+    padding: 20px;
+    font-size: 12px;
+  }
+  img {
+    width: 100%;
+    height: auto;
+  }

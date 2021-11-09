@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http'
 
 import { ProductService } from './service/product.service';
 import { ProductComponentComponent } from './product-component/product-component.component';
+import { HomeComponent } from './home/home.component';
+import { ProductListServiceResolver } from './ProductListServiceResolver.service';
 
 
 @NgModule({
@@ -18,14 +20,15 @@ import { ProductComponentComponent } from './product-component/product-component
     AppComponent,
     HeaderComponent,
     
-    ProductComponentComponent
+    ProductComponentComponent,
+         HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ProductListServiceResolver],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

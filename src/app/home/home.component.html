@@ -1,0 +1,10 @@
+<div class="container-fluid flex-container">
+    <div *ngFor="let data of datas">
+      <app-product-component [data]="data"></app-product-component>
+    </div>
+  
+ 
+</div>
+<div><button (click)='gotToCart()'>Add to Cart</button></div>
+
+  

@@ -1,6 +1,23 @@
-<div>
-    <div>
-        <img src="" alt="">
-    </div>
-</div>
 
+ <div class="card mb-3" style="width: 350px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img [src]="data.image" class="img-fluid rounded-start" alt="data.title">
+      </div>
+      <div class="col-md-8">
+
+        <div class="card-body">
+          <h5 class="card-title">{{data.id}}</h5>
+          <h5 class="card-title">{{data.title}}</h5>
+          <ng-container *ngIf="showDescription">
+            <p class="card-text">{{data.description}}</p>
+          </ng-container>
+          
+          <p class="card-text">{{data.price}}</p>
+          <p class="card-text">{{data.rating.rate}}</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> 
+        </div>
+      </div>
+    </div>
+    <button (click)='addToCart(data.id)'>Add to Cart</button>
+  </div> 
