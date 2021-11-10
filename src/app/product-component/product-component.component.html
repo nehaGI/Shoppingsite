@@ -10,7 +10,7 @@
           <h5 class="card-title">{{data.id}}</h5>
           <h5 class="card-title">{{data.title}}</h5>
           <ng-container *ngIf="showDescription">
-            <p class="card-text">{{data.description}}</p>
+            <p class="card-text" style="overflow: scroll;">{{data.description}}</p>
           </ng-container>
           
           <p class="card-text">{{data.price}}</p>

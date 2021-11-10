@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
+
 import { ProductService } from './service/product.service';
 import {ActivatedRoute,Router} from '@angular/router';
 import { Product } from './models/Product';
@@ -19,20 +19,20 @@ export class AppComponent implements OnInit {
   ngOnInit(){//params is deprecated
     //this.activatedRoute.paramMap.subscribe(path=>this.rName=path);
 
-    this.getProducts();
-     console.log( this.datas);
+   /*  this.getProducts();
+     console.log( this.datas); */
 
   }
 
-  getP(){
+ /*  getP(){
     this._router.navigate(['product']);
   }
  getProducts(){
      this.pService.getProducts().subscribe(res=>{
       this.datas=res;
-   });
+   }); */
    
-  }
+  
   
 
  

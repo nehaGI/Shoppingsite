@@ -31,7 +31,8 @@
               "src/assets",
               "src/gatekeeper"
             ],
-            "styles": ["bootstrap/dist/css/bootstrap.min.css",
+            "styles": [
+              "bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
             ],
             "scripts": []

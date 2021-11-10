@@ -1,0 +1,193 @@
+<p>
+  <button type="button" class="btn btn-primary">Add User</button>
+</p>
+<form [formGroup]="contactForm">
+  <div class="mt-5">
+    <div class="form-row">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="firstname">First Name </label>
+          <input
+            type="text"
+            id="firstname"
+            name="firstname"
+            formControlName="firstname"
+            placeholder="First name"
+          />
+          <span
+            class="error"
+            *ngIf="
+              !contactForm.controls.firstname?.valid &&
+              (contactForm.controls.firstname?.dirty ||
+                contactForm.controls.firstname?.touched)
+            "
+          >
+            First Name is not valid
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Last Name </label>
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            formControlName="lastname"
+            placeholder="Last name"
+          />
+          <span
+            class="error"
+            *ngIf="
+              !contactForm.controls.lastname?.valid &&
+              (contactForm.controls.lastname?.dirty ||
+                contactForm.controls.lastname?.touched)
+            "
+          >
+            Last Name is not valid
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="email">Email </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            formControlName="email"
+            placeholder="abc@gmail.com"
+          />
+        </div>
+        <div class="form-group">
+          <label for="phone">Phone </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            formControlName="phone"
+            placeholder="1236549878"
+          />
+        </div>
+        <div class="form-group">
+          <label for="company">Company </label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            formControlName="company"
+            placeholder="abc limited"
+          />
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender </label>
+          <input
+            type="radio"
+            value="male"
+            id="gender"
+            name="gender"
+            formControlName="gender"
+          />
+          Male
+          <input
+            type="radio"
+            value="female"
+            id="gender"
+            name="gender"
+            formControlName="gender"
+          />
+          Female
+          <span
+            class="error"
+            *ngIf="
+              !contactForm.controls.gender?.valid &&
+              (contactForm.controls.gender?.dirty ||
+                contactForm.controls.gender?.touched)
+            "
+          >
+            Please select male or female
+          </span>
+        </div>
+        <div class="form-group">
+          <label for="_date">DOB</label>
+          <input type="date" id="_date" name="_date" formControlName="_date" />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            formControlName="password"
+          />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            formControlName="confirmPassword"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="button_panel">
+    <div *ngIf="isAdd">
+      <button type="button" class="btn btn-primary" (click)="getRegistered()">
+        Register
+      </button>
+    </div>
+    <div *ngIf="!isAdd">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="update()"
+        [disabled]="val"
+      >
+        Update
+      </button>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="clearForm()">
+      Cancel
+    </button>
+  </div>
+</form>
+
+<div>
+  <table class="table table-bordered" style="width:75%">
+    <thead>
+      <tr style="background-color:#c9554d">
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Company</th>
+        <th>DOB</th>
+        <th>Edit</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let element of listValues; let i = index">
+        <td>{{ element.firstname }}</td>
+        <td>{{ element.lastname }}</td>
+        <td>{{ element.email }}</td>
+        <td>{{ element.company }}</td>
+        <td>{{ element.Phone }}</td>
+        <td>{{ element._date }}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="edit(i)">
+            Edit
+          </button>
+        </td>
+        <td>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="deleteElement(i)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
