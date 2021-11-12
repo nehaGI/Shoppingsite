@@ -14,16 +14,6 @@
             formControlName="firstname"
             placeholder="First name"
           />
-          <span
-            class="error"
-            *ngIf="
-              !contactForm.controls.firstname?.valid &&
-              (contactForm.controls.firstname?.dirty ||
-                contactForm.controls.firstname?.touched)
-            "
-          >
-            First Name is not valid
-          </span>
         </div>
         <div class="form-group">
           <label for="lastname">Last Name </label>
@@ -34,16 +24,18 @@
             formControlName="lastname"
             placeholder="Last name"
           />
-          <span
-            class="error"
-            *ngIf="
-              !contactForm.controls.lastname?.valid &&
-              (contactForm.controls.lastname?.dirty ||
-                contactForm.controls.lastname?.touched)
-            "
-          >
-            Last Name is not valid
-          </span>
+          <div *ngIf="!lastname.valid && (lastname.dirty || lastname.touched)">
+            <div [hidden]="!lastname.errors.pattern">
+              Only characters are allowed
+            </div>
+            <div [hidden]="!lastname.errors.maxLength">
+              Max length allowed is
+              {{ lastname.errors.maxlength?.requiredLength }}
+            </div>
+            <div [hidden]="!lastname.errors.required">
+              Last Name is required
+            </div>
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email </label>
@@ -54,6 +46,10 @@
             formControlName="email"
             placeholder="abc@gmail.com"
           />
+          <div *ngIf="!email.valid && (email.dirty || email.touched)">
+            <div [hidden]="!email.errors.required">email is required</div>
+            <div [hidden]="!email.errors.email">invalid email id</div>
+          </div>
         </div>
         <div class="form-group">
           <label for="phone">Phone </label>
@@ -93,16 +89,9 @@
             formControlName="gender"
           />
           Female
-          <span
-            class="error"
-            *ngIf="
-              !contactForm.controls.gender?.valid &&
-              (contactForm.controls.gender?.dirty ||
-                contactForm.controls.gender?.touched)
-            "
-          >
-            Please select male or female
-          </span>
+          <div *ngIf="!gender.valid && (gender.dirty || gender.touched)">
+            <div [hidden]="!gender.errors.required">gender is required</div>
+          </div>
         </div>
         <div class="form-group">
           <label for="_date">DOB</label>
@@ -131,7 +120,7 @@
   </div>
   <div class="button_panel">
     <div *ngIf="isAdd">
-      <button type="button" class="btn btn-primary" (click)="getRegistered()">
+      <button type="button" class="btn btn-primary" (click)="getRegistered()" [disabled]="!contactForm.valid">
         Register
       </button>
     </div>
@@ -140,7 +129,7 @@
         type="button"
         class="btn btn-primary"
         (click)="update()"
-        [disabled]="val"
+        [disabled]="!contactForm.valid"
       >
         Update
       </button>
@@ -150,6 +139,20 @@
     </button>
   </div>
 </form>
+<div>{{er}}</div>
+<div style="float: right; width:50%;">
+  <h3>Form Status</h3>
+  <p>{{contactForm.errors}}</p>
+  <b>valid : </b>{{ contactForm.valid }} <b>invalid : </b
+  >{{ contactForm.invalid }} <b>touched : </b>{{ contactForm.touched }}
+  <b>untouched : </b>{{ contactForm.untouched }} <b>pristine : </b
+  >{{ contactForm.pristine }} <b>dirty : </b>{{ contactForm.dirty }}
+  <b>disabled : </b>{{ contactForm.disabled }} <b>enabled : </b
+  >{{ contactForm.enabled }}
+
+  <h3>Form Value</h3>
+  {{ contactForm.value | json }}
+</div>
 
 <div>
   <table class="table table-bordered" style="width:75%">

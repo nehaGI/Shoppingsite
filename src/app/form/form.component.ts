@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./form.component.css'],
 })
 export class FormComponent implements OnInit {
-  val!: boolean;
+  er='';
   listValues: any = [
     {
       firstname: 'NEHA2',
@@ -33,39 +33,68 @@ export class FormComponent implements OnInit {
     },
   ];
   isAdd = true;
-  updateIndex: number =-1;
+  updateIndex: number;
   contactForm: FormGroup = new FormGroup({});
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
     this.contactForm = this.formBuilder.group({
       firstname: ['', Validators.required],
-      lastname: ['', Validators.required],
-      email: [
+      lastname: [
         '',
-        Validators.required,
-        Validators.email,
-        Validators.pattern(
-          "/^[a-z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;"
-        ),
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.pattern('^[a-zA-Z]+$'),
+        ],
       ],
-      phone: ['', Validators.required, Validators.minLength(10)],
-      company: ['', Validators.required],
-      gender: ['', Validators.required],
-      _date: ['', Validators.required],
-      password: ['', Validators.required, Validators.minLength(8)],
-      confirmPassword: ['', Validators.required, Validators.minLength(8)],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.minLength(10)]],
+      company: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      _date: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
+
+    this.contactForm.get('firstname').statusChanges.subscribe((x) => {
+      console.log('firstname status changes');
+    });
+
+    this.contactForm.get('firstname').valueChanges.subscribe((x) => {
+      console.log('firstname value changed');
+    });
+
+    this.contactForm.statusChanges.subscribe((x) => {
+      console.log('form status changes');
+    });
+
+    this.contactForm.valueChanges.subscribe((x) => {
+      console.log('form value changed');
+    });
+    this.withEmitEvent();
+  }
+  get lastname() {
+    return this.contactForm.get('lastname');
+  }
+  get email() {
+    return this.contactForm.get('email');
+  }
+  get gender() {
+    return this.contactForm.get('gender');
+  }
+  withEmitEvent() {
+    this.contactForm.get('firstname').setValue('a', { onlySelf: true ,emitEvent: false });
   }
 
   getRegistered() {
+    this.er=this.contactForm.getError('contactForm');
     if (this.contactForm.valid) {
-      this.val = true;
+      //this.val = true;
       this.listValues.push(this.contactForm.value);
     }
-    this.val = false;
-    this.contactForm.reset();
+    // this.val = false;
+    //this.contactForm.reset();
   }
-  
   clearForm() {
     this.contactForm.reset();
     this.isAdd = true;
@@ -85,3 +114,4 @@ export class FormComponent implements OnInit {
     this.clearForm();
   }
 }
+//https://stackblitz.com/edit/angular-ivy-jruk6d?file=src%2Fapp%2Fform%2Fform.component.ts
