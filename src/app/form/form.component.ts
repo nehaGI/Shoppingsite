@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { statSync } from 'fs';
 
 @Component({
   selector: 'app-form',
@@ -33,7 +34,7 @@ export class FormComponent implements OnInit {
     },
   ];
   isAdd = true;
-  updateIndex: number;
+  updateIndex!: number;
   contactForm: FormGroup = new FormGroup({});
   constructor(private formBuilder: FormBuilder) {}
   ngOnInit() {
@@ -56,23 +57,9 @@ export class FormComponent implements OnInit {
       confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
     });
 
-    this.contactForm.get('firstname').statusChanges.subscribe((x) => {
-      console.log('firstname status changes');
-    });
-
-    this.contactForm.get('firstname').valueChanges.subscribe((x) => {
-      console.log('firstname value changed');
-    });
-
-    this.contactForm.statusChanges.subscribe((x) => {
-      console.log('form status changes');
-    });
-
-    this.contactForm.valueChanges.subscribe((x) => {
-      console.log('form value changed');
-    });
-    this.withEmitEvent();
   }
+
+   
   get lastname() {
     return this.contactForm.get('lastname');
   }
@@ -82,10 +69,7 @@ export class FormComponent implements OnInit {
   get gender() {
     return this.contactForm.get('gender');
   }
-  withEmitEvent() {
-    this.contactForm.get('firstname').setValue('a', { onlySelf: true ,emitEvent: false });
-  }
-
+  
   getRegistered() {
     this.er=this.contactForm.getError('contactForm');
     if (this.contactForm.valid) {

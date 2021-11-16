@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {HeaderComponent} from './header/header.component';
 
 
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 
 
 import { ProductService } from './service/product.service';
@@ -15,6 +15,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductListServiceResolver } from './ProductListServiceResolver.service';
 import { FormComponent } from './form/form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppHttpInterceptor } from './service/http.intercepter';
 
 
 @NgModule({
@@ -31,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [ProductListServiceResolver],
+  providers: [ProductListServiceResolver,{provide:HTTP_INTERCEPTORS, useValue:AppHttpInterceptor,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
